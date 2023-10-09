@@ -27,7 +27,7 @@ else
     mv compile_commands.json ..
     #cp -r ../Sandbox/assets ./Sandbox
 
-    make all
+    make all -j7
 
     echo -n "Would you like to run the project? (y/n): "
     read execute
