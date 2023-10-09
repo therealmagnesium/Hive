@@ -4,7 +4,7 @@
 
 struct AppConfig
 {
-    s16 targetFPS;
+    u16 targetFPS;
     s16 width;
     s16 height;
     std::string name;
@@ -12,17 +12,22 @@ struct AppConfig
 
 class Application
 {
-  public:
+public:
     Application(AppConfig* config);
-    ~Application();
+    virtual ~Application();
+
+    virtual void OnStart() = 0;
+    virtual void OnProcessInput() = 0;
+    virtual void OnUpdate() = 0;
+    virtual void OnRender() = 0;
 
     void Run();
 
-  private:
+private:
     void Init();
     void Shutdown();
 
-  private:
+private:
     bool m_running = false;
     AppConfig m_config;
 };

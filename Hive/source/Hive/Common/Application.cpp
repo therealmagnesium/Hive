@@ -1,15 +1,8 @@
 #include "Application.h"
 #include <raylib.h>
 
-Application::Application(AppConfig* config) : m_config(*config)
-{
-    Init();
-}
-
-Application::~Application()
-{
-    Shutdown();
-}
+Application::Application(AppConfig* config) : m_config(*config) { Init(); }
+Application::~Application() { Shutdown(); }
 
 void Application::Init()
 {
@@ -30,12 +23,22 @@ void Application::Shutdown()
 
 void Application::Run()
 {
+    OnStart();
+
     while (m_running)
     {
         m_running = !WindowShouldClose();
 
+        if (IsKeyPressed(KEY_ESCAPE))
+            m_running = false;
+
+        OnUpdate();
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
+
+        OnRender();
+
         EndDrawing();
     }
 }
