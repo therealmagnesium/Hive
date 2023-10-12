@@ -16,6 +16,8 @@ public:
     Application(AppConfig* config);
     virtual ~Application();
 
+    inline void Quit() { m_running = false; }
+
     virtual void OnStart() = 0;
     virtual void OnProcessInput() = 0;
     virtual void OnUpdate() = 0;

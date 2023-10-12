@@ -8,7 +8,7 @@ public:
 
     void OnStart() override
     {
-        Scene* gameScene = new GameScene();
+        Scene* gameScene = new GameScene(this);
         u32 gameSceneID = m_sceneStateMachine.Add(gameScene);
         m_sceneStateMachine.SwitchTo(gameSceneID);
     }

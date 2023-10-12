@@ -4,7 +4,7 @@
 class GameScene : public Scene
 {
 public:
-    GameScene();
+    GameScene(Application* app);
 
     void OnCreate() override;
     void OnDestroy() override;
@@ -14,4 +14,5 @@ public:
     void Render() override;
 
 private:
+    Application* m_app;
 };

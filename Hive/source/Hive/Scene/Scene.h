@@ -1,4 +1,8 @@
 #pragma once
+#include <entt.hpp>
+#include <string>
+
+class Entity;
 
 class Scene
 {
@@ -14,4 +18,10 @@ public:
     virtual void ProcessInput() {}
     virtual void Update() {}
     virtual void Render() {}
+
+    Entity CreateEntity(const std::string& tag);
+
+private:
+    friend class Entity;
+    entt::registry m_registry;
 };
