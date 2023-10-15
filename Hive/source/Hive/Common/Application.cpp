@@ -1,44 +1,48 @@
 #include "Application.h"
 #include <raylib.h>
 
-Application::Application(AppConfig* config) : m_config(*config) { Init(); }
-Application::~Application() { Shutdown(); }
+#define FPS_MARGIN 10 // TEMP
 
-void Application::Init()
+namespace Hive
 {
-    InitWindow(m_config.width, m_config.height, m_config.name.c_str());
-    SetTargetFPS(m_config.targetFPS);
+    Application::Application(AppConfig* config) : m_config(*config) { Init(); }
+    Application::~Application() { Shutdown(); }
 
-    m_running = true;
-
-    printf("Initialized Hive application successfully!\n");
-}
-
-void Application::Shutdown()
-{
-    CloseWindow();
-
-    printf("Application shutdown successfully\n");
-}
-
-void Application::Run()
-{
-    OnStart();
-
-    while (m_running)
+    void Application::Init()
     {
-        m_running = !WindowShouldClose();
+        InitWindow(m_config.width, m_config.height, m_config.name.c_str());
+        SetTargetFPS(m_config.targetFPS);
+        SetExitKey(KEY_NULL);
 
-        if (IsKeyPressed(KEY_ESCAPE))
-            m_running = false;
+        m_running = true;
 
-        OnUpdate();
+        printf("Initialized Hive application successfully!\n");
+    }
 
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
+    void Application::Shutdown()
+    {
+        CloseWindow();
 
-        OnRender();
+        printf("Application shutdown successfully\n");
+    }
 
-        EndDrawing();
+    void Application::Run()
+    {
+        OnStart();
+
+        while (m_running)
+        {
+            m_running = !WindowShouldClose();
+
+            OnUpdate(GetFrameTime());
+
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+
+            DrawFPS(FPS_MARGIN, FPS_MARGIN);
+            OnRender();
+
+            EndDrawing();
+        }
     }
 }

@@ -1,5 +1,7 @@
 #include "GameScene.h"
 
+using namespace Hive;
+
 class Sandbox : public Application
 {
 public:
@@ -12,8 +14,7 @@ public:
         u32 gameSceneID = m_sceneStateMachine.Add(gameScene);
         m_sceneStateMachine.SwitchTo(gameSceneID);
     }
-    void OnProcessInput() override { m_sceneStateMachine.ProcessInput(); }
-    void OnUpdate() override { m_sceneStateMachine.Update(); }
+    void OnUpdate(float dt) override { m_sceneStateMachine.Update(dt); }
     void OnRender() override { m_sceneStateMachine.Render(); }
 
 private:
@@ -23,7 +24,7 @@ private:
 int main(int argc, char* argv[])
 {
     AppConfig config;
-    config.targetFPS = 60;
+    config.targetFPS = 480;
     config.width = 1280;
     config.height = 720;
     config.name = "Sandbox";

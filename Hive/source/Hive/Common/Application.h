@@ -2,34 +2,36 @@
 #include "Types.h"
 #include <string>
 
-struct AppConfig
+namespace Hive
 {
-    u16 targetFPS;
-    s16 width;
-    s16 height;
-    std::string name;
-};
+    struct AppConfig
+    {
+        u16 targetFPS;
+        s16 width;
+        s16 height;
+        std::string name;
+    };
 
-class Application
-{
-public:
-    Application(AppConfig* config);
-    virtual ~Application();
+    class Application
+    {
+    public:
+        Application(AppConfig* config);
+        virtual ~Application();
 
-    inline void Quit() { m_running = false; }
+        inline void Quit() { m_running = false; }
+        void Run();
 
-    virtual void OnStart() = 0;
-    virtual void OnProcessInput() = 0;
-    virtual void OnUpdate() = 0;
-    virtual void OnRender() = 0;
+    protected:
+        virtual void OnStart() = 0;
+        virtual void OnUpdate(float dt) = 0;
+        virtual void OnRender() = 0;
 
-    void Run();
+    private:
+        void Init();
+        void Shutdown();
 
-private:
-    void Init();
-    void Shutdown();
-
-private:
-    bool m_running = false;
-    AppConfig m_config;
-};
+    private:
+        bool m_running = false;
+        AppConfig m_config;
+    };
+}

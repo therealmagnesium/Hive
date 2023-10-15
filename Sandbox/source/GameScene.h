@@ -1,6 +1,8 @@
 #pragma once
 #include <Hive.h>
 
+using namespace Hive;
+
 class GameScene : public Scene
 {
 public:
@@ -9,10 +11,10 @@ public:
     void OnCreate() override;
     void OnDestroy() override;
 
-    void ProcessInput() override;
-    void Update() override;
-    void Render() override;
+    void OnUpdate(float dt) override;
+    void OnRender() override;
 
 private:
     Application* m_app;
+    Entity* m_entity;
 };

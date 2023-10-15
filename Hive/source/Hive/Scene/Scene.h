@@ -2,26 +2,29 @@
 #include <entt.hpp>
 #include <string>
 
-class Entity;
-
-class Scene
+namespace Hive
 {
-public:
-    virtual ~Scene() {}
+    class Entity;
 
-    virtual void OnCreate() = 0;
-    virtual void OnDestroy() = 0;
+    class Scene
+    {
+    public:
+        virtual ~Scene() {}
 
-    virtual void OnActivate() {}
-    virtual void OnDeactivate() {}
+        virtual void OnCreate() = 0;
+        virtual void OnDestroy() = 0;
 
-    virtual void ProcessInput() {}
-    virtual void Update() {}
-    virtual void Render() {}
+        virtual void OnActivate() {}
+        virtual void OnDeactivate() {}
 
-    Entity CreateEntity(const std::string& tag);
+        virtual void OnUpdate(float dt) {}
+        virtual void OnRender() {}
 
-private:
-    friend class Entity;
-    entt::registry m_registry;
-};
+        Entity CreateEntity(const std::string& tag);
+        Entity* CreateEntityP(const std::string& tag);
+
+    private:
+        friend class Entity;
+        entt::registry m_registry;
+    };
+}
